@@ -25,7 +25,29 @@ Each tag (`episode-2`, `episode-3`, …) matches the code **at the end of that e
 
 ## Setup
 
-Instructions will be added as the series adds runnable code.
+Requires Python 3.10+.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Scripts live in `script/`. Run them from the **repo root**:
+
+```bash
+PYTHONPATH=. python script/<script_name>.py
+```
+
+`requirements.txt` grows as the series adds new dependencies.
+
+## Project layout
+
+```text
+data/       # training text
+llm/        # model and training code
+script/     # entry points you run
+```
 
 ## License
 
