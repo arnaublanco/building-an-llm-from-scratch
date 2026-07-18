@@ -20,7 +20,7 @@ Each tag (`episode-2`, `episode-3`, …) matches the code **at the end of that e
 | Episode | Topic | Watch | Code |
 |---------|-------|-------|------|
 | 1 | Introduction & history of LLMs | [YouTube](https://www.youtube.com/watch?v=AA1OozCxg4M) | — |
-| 2 | Tokenization & embeddings | *Coming soon* | [`episode-2`](../../tree/episode-2) |
+| 2 | Tokenization & embeddings | [YouTube](https://www.youtube.com/watch?v=QR5wXrY1rto) | [`episode-2`](../../tree/episode-2) |
 | 3 | *Coming soon* | — | — |
 
 ## Setup
