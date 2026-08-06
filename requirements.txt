@@ -1,3 +1,4 @@
 regex
 sentencepiece
 torch
+numpy
