@@ -22,7 +22,8 @@ Each tag (`episode-2`, `episode-3`, …) matches the code **at the end of that e
 | 1 | Introduction & history of LLMs | [YouTube](https://www.youtube.com/watch?v=AA1OozCxg4M) | — |
 | 2 | Tokenization & embeddings | [YouTube](https://www.youtube.com/watch?v=QR5wXrY1rto) | [`episode-2`](../../tree/episode-2) |
 | 3 | Positional encodings, self-attention & causal masks | [YouTube](https://www.youtube.com/watch?v=-E0fO5BTS18) | [`episode-3`](../../tree/episode-3) |
-| 4 | *Coming soon* | — | — |
+| 4 | Multi-head attention | [YouTube](https://youtu.be/9Axv1DvXfy8) | [`episode-4`](../../tree/episode-4) |
+| 5 | *Coming soon* | — | — |
 
 ## Setup
 
