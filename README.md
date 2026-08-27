@@ -23,7 +23,8 @@ Each tag (`episode-2`, `episode-3`, …) matches the code **at the end of that e
 | 2 | Tokenization & embeddings | [YouTube](https://www.youtube.com/watch?v=QR5wXrY1rto) | [`episode-2`](../../tree/episode-2) |
 | 3 | Positional encodings, self-attention & causal masks | [YouTube](https://www.youtube.com/watch?v=-E0fO5BTS18) | [`episode-3`](../../tree/episode-3) |
 | 4 | Multi-head attention | [YouTube](https://youtu.be/9Axv1DvXfy8) | [`episode-4`](../../tree/episode-4) |
-| 5 | *Coming soon* | — | — |
+| 5 | Building the full GPT model | [YouTube](https://youtu.be/59WV3uf4r-A) | [`episode-5`](../../tree/episode-5) |
+| 6 | *Coming soon* | — | — |
 
 ## Setup
 
