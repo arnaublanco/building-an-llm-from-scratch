@@ -8,15 +8,15 @@ text = (ROOT / "data" / "wikibooks.txt").read_text(encoding="utf-8")
 
 ckpt_dir = ROOT / "checkpoints"
 ckpt_dir.mkdir(exist_ok=True)
-ckpt_path = ckpt_dir / "gpt_wikibooks.pt"
+ckpt_path = ckpt_dir / "gpt_france.pt"
 
 tokenizer = BPETokenizer()
-tokenizer.train(text, vocab_size=512)
+tokenizer.train(text, vocab_size=4096)
 tokens = tokenizer.encode(text)
 data = torch.tensor(tokens, dtype=torch.long)
 
 block_size = 128
-batch_size = 4
+batch_size = 16
 
 def get_batch(data, block_size, batch_size):
     ix = torch.randint(0, len(data) - block_size, (batch_size,))
@@ -26,10 +26,11 @@ def get_batch(data, block_size, batch_size):
 
 model = GPT(
     vocab_size=len(tokenizer.vocab),
-    d_model=64,
+    d_model=128,
     num_heads=4,
-    n_layers=2,
+    n_layers=4,
     max_len=block_size,
+    dropout=0.1,
 )
 
 optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
@@ -39,15 +40,15 @@ split = int(0.9 * len(data))
 train_data = data[:split]
 val_data = data[split:]
 
-for step in range(1000):
+best_val = float("inf")
+
+for step in range(30000):
     x, y = get_batch(train_data, block_size, batch_size)
     logits = model(x)
     loss = loss_fn(logits.view(-1, logits.size(-1)), y.view(-1))
     optimizer.zero_grad()  # clear old gradients
     loss.backward()  # compute new gradients
     optimizer.step()  # update new weights
-
-    best_val = float("inf")
 
     if step % 100 == 0:
         model.eval()
@@ -57,7 +58,7 @@ for step in range(1000):
             val_loss = loss_fn(
                 val_logits.view(-1, val_logits.size(-1)),
                 y_val.view(-1),
-            )
+            ).item()
 
         marker = ""
         if val_loss < best_val:
@@ -68,10 +69,11 @@ for step in range(1000):
                     "merges": tokenizer.merges,
                     "config": {
                         "vocab_size": len(tokenizer.vocab),
-                        "d_model": 64,
+                        "d_model": 128,
                         "num_heads": 4,
-                        "n_layers": 2,
+                        "n_layers": 4,
                         "max_len": block_size,
+                        "dropout": 0.1,
                     },
                 },
                 ckpt_path,
@@ -79,4 +81,4 @@ for step in range(1000):
             marker = " <- saved (best val)"
         model.train()
         print(step, "train", loss.item(), "val", val_loss, marker)
-        print("Best val:", best_val, "->", ckpt_path)
+print("Best val:", best_val, "->", ckpt_path)

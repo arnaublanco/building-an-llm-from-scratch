@@ -4,7 +4,7 @@ from llm.tokenizer.bpe import BPETokenizer
 from llm.model.gpt import GPT
 
 ROOT = Path(__file__).resolve().parent.parent
-ckpt = torch.load(ROOT / "checkpoints" / "gpt_wikibooks.pt", weights_only=False,)
+ckpt = torch.load(ROOT / "checkpoints" / "gpt_france.pt", weights_only=False,)
 
 tokenizer = BPETokenizer()
 for pair in ckpt["merges"]:
@@ -13,11 +13,12 @@ for pair in ckpt["merges"]:
 
 cfg = ckpt["config"]
 model = GPT(
-    vocab_size = cfg["vocab_size"],
-    d_model = cfg["d_model"],
-    num_heads = cfg["num_heads"],
-    n_layers = cfg["n_layers"],
-    max_len = cfg["max_len"],
+    vocab_size=cfg["vocab_size"],
+    d_model=cfg["d_model"],
+    num_heads=cfg["num_heads"],
+    n_layers=cfg["n_layers"],
+    max_len=cfg["max_len"],
+    dropout=cfg.get("dropout", 0.0),
 )
 model.load_state_dict(ckpt["model"])
 model.eval()
