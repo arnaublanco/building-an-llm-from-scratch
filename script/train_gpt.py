@@ -6,6 +6,10 @@ from llm.model.gpt import GPT
 ROOT = Path(__file__).resolve().parent.parent
 text = (ROOT / "data" / "wikibooks.txt").read_text(encoding="utf-8")
 
+ckpt_dir = ROOT / "checkpoints"
+ckpt_dir.mkdir(exist_ok=True)
+ckpt_path = ckpt_dir / "gpt_wikibooks.pt"
+
 tokenizer = BPETokenizer()
 tokenizer.train(text, vocab_size=512)
 tokens = tokenizer.encode(text)
@@ -43,6 +47,8 @@ for step in range(1000):
     loss.backward()  # compute new gradients
     optimizer.step()  # update new weights
 
+    best_val = float("inf")
+
     if step % 100 == 0:
         model.eval()
         with torch.no_grad():
@@ -52,5 +58,25 @@ for step in range(1000):
                 val_logits.view(-1, val_logits.size(-1)),
                 y_val.view(-1),
             )
+
+        marker = ""
+        if val_loss < best_val:
+            best_val = val_loss
+            torch.save(
+                {
+                    "model": model.state_dict(),
+                    "merges": tokenizer.merges,
+                    "config": {
+                        "vocab_size": len(tokenizer.vocab),
+                        "d_model": 64,
+                        "num_heads": 4,
+                        "n_layers": 2,
+                        "max_len": block_size,
+                    },
+                },
+                ckpt_path,
+            )
+            marker = " <- saved (best val)"
         model.train()
-        print(step, "train", loss.item(), "val", val_loss.item())
+        print(step, "train", loss.item(), "val", val_loss, marker)
+        print("Best val:", best_val, "->", ckpt_path)
