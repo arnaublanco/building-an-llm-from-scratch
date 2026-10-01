@@ -25,7 +25,8 @@ Each tag (`episode-2`, `episode-3`, …) matches the code **at the end of that e
 | 4 | Multi-head attention | [YouTube](https://youtu.be/9Axv1DvXfy8) | [`episode-4`](../../tree/episode-4) |
 | 5 | Building the full GPT model | [YouTube](https://youtu.be/59WV3uf4r-A) | [`episode-5`](../../tree/episode-5) |
 | 6 | Training | [YouTube](https://youtu.be/ydfVdlPVLjc) | [`episode-6`](../../tree/episode-6) |
-| 7 | Tuning hyperparameters  | _Coming soon_ | - |
+| 7 | Tuning hyperparameters | [YouTube](https://youtu.be/hkxqhmiddDA) | [`episode-7`](../../tree/episode-7) |
+| 8 | Finetuning a pretrained model | _Coming soon_ | — |
 
 ## Setup
 
